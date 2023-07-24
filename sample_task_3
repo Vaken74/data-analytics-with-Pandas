@@ -1,0 +1,27 @@
+#sample_task_3
+#Visualize the number of successful operations made on the computer platform, depending on the age
+
+import pandas as pd
+df = pd.read_csv("https://stepik.org/media/attachments/lesson/360348/user_data.csv", sep = ',', encoding='windows-1251')
+
+lf = pd.read_csv("https://stepik.org/media/attachments/lesson/360348/logs.csv", sep = ',', encoding='windows-1251')
+
+print(df.dtypes)
+print(df.columns)
+print(lf.isna().sum())	
+print(lf.isnull())
+
+kf = df.merge(lf, on = 'client', how = 'inner')
+
+d1 = (kf.query('premium == True') \
+     .platform.value_counts()
+      )
+print(d1)
+print(kf.head(10))
+#pervoe reshenie moe
+d3 = (kf.query('platform == "computer"') \
+      .groupby('age') \
+      .agg({'success': 'sum'}) 
+      )
+print(d3.sort_values(by='success', ascending=False))
+
