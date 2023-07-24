@@ -1,0 +1,16 @@
+#sample_task_2
+#Select only those where wealth is 'medium' and age is greater than 35. Place the result in medium_35.
+
+import pandas as pd
+df = pd.read_csv("lesson_3_data__1_.csv", encoding='windows-1251')
+#df = pd.read_csv("https://stepik.org/media/attachments/lesson/383523/lesson_3_data__1_.csv", encoding='windows-1251')
+
+print(df.dtypes)
+print(df.columns)
+
+medium_35 = df.query('wealth == "medium" and age > 35')#step 2 3/3
+medium_35 = df.loc[(df.wealth == 'medium') & (df.age > 35)] #ne moe reshenie
+
+df = df.rename(columns={'Client id': 'client_id', 'Gender': 'sex', 'Salary': 'wealth', 'How old': 'age'})  
+df['older_than_30'] = df['age'].apply(lambda x: True if x > 30 else False)
+
