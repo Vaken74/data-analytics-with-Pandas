@@ -1,0 +1,12 @@
+#sample_task_1
+#How the driver scores (driver_score) are distributed.
+
+import pandas as pd
+df = pd.read_csv("https://stepik.org/media/attachments/lesson/359240/taxi_peru.csv", sep = ';', parse_dates = ['start_at', 'end_at', 'arrived_at'], encoding='windows-1251')
+
+driver_score_counts = df.driver_score.value_counts(normalize=True)\
+    .mul(100)\
+    .round(2)\
+    .reset_index()  \
+    .rename(columns={'index': 'driver_score', 'driver_score': 'percentage'})\
+    .sort_values('driver_score')  
